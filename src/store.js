@@ -63,6 +63,10 @@ export function useStore() {
     setItems(prev => prev.filter(i => i.id !== id))
   }
 
+  function moveItem(id, newQuadrantId) {
+    setItems(prev => prev.map(i => i.id === id ? { ...i, quadrantId: newQuadrantId } : i))
+  }
+
   // 최근 7일 통계
   function weeklyStats() {
     return Array.from({ length: 7 }, (_, i) => {
@@ -80,5 +84,5 @@ export function useStore() {
     })
   }
 
-  return { items, todayItems, rate, addItem, toggleItem, deleteItem, weeklyStats }
+  return { items, todayItems, rate, addItem, toggleItem, deleteItem, moveItem, weeklyStats }
 }

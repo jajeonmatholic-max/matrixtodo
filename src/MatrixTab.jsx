@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { QUADRANTS } from './store'
 
-export default function MatrixTab({ todayItems, rate, addItem, toggleItem, deleteItem }) {
+export default function MatrixTab({ todayItems, rate, addItem, toggleItem, deleteItem, moveItem }) {
   const [adding, setAdding] = useState(null) // quadrantId
   const [title, setTitle] = useState('')
 
@@ -52,6 +52,7 @@ export default function MatrixTab({ todayItems, rate, addItem, toggleItem, delet
               onAdd={() => setAdding(q.id)}
               onToggle={toggleItem}
               onDelete={deleteItem}
+              onMove={moveItem}
             />
           )
         })}
@@ -106,8 +107,9 @@ export default function MatrixTab({ todayItems, rate, addItem, toggleItem, delet
   )
 }
 
-function QuadrantCell({ q, items, onAdd, onToggle, onDelete }) {
+function QuadrantCell({ q, items, onAdd, onToggle, onDelete, onMove }) {
   const [swipedId, setSwipedId] = useState(null)
+  const [dragOverId, setDragOverId] = useState(null)
 
   return (
     <div style={{
@@ -126,15 +128,28 @@ function QuadrantCell({ q, items, onAdd, onToggle, onDelete }) {
       <div style={{ height: 1, background: q.color, opacity: 0.25, flexShrink: 0 }}/>
 
       {/* 목록 */}
-      <div style={{ flex: 1, overflowY: 'auto', scrollbarGutter: 'stable', WebkitOverflowScrolling: 'touch' }}>
+      <div
+        style={{ flex: 1, overflowY: 'auto', scrollbarGutter: 'stable', WebkitOverflowScrolling: 'touch' }}
+        onDragOver={(e) => { e.preventDefault(); e.dataTransfer.dropEffect = 'move' }}
+        onDrop={(e) => {
+          e.preventDefault()
+          const itemId = e.dataTransfer.getData('itemId')
+          if (itemId) onMove(itemId, q.id)
+        }}
+      >
         {items.map(item => (
           <div
             key={item.id}
+            draggable
+            onDragStart={(e) => e.dataTransfer.setData('itemId', item.id)}
+            onDragEnd={() => setDragOverId(null)}
             style={{
               display: 'flex', alignItems: 'center', gap: 6,
               padding: '6px 8px',
               background: swipedId === item.id ? '#3a0010' : 'transparent',
-              transition: 'background 0.2s'
+              transition: 'background 0.2s',
+              opacity: dragOverId === item.id ? 0.5 : 1,
+              cursor: 'move'
             }}
             onTouchStart={() => {}}
           >

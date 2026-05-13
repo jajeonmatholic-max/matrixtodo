@@ -12,7 +12,7 @@ const TABS = [
 
 export default function App() {
   const [tab, setTab] = useState('matrix')
-  const { todayItems, rate, addItem, toggleItem, deleteItem, weeklyStats } = useStore()
+  const { todayItems, rate, addItem, toggleItem, deleteItem, moveItem, weeklyStats } = useStore()
 
   const TAB_LABELS = { matrix: '매트릭스', growth: '성장', stats: '통계' }
 
@@ -44,7 +44,7 @@ export default function App() {
         {tab === 'matrix' && (
           <MatrixTab
             todayItems={todayItems} rate={rate}
-            addItem={addItem} toggleItem={toggleItem} deleteItem={deleteItem}
+            addItem={addItem} toggleItem={toggleItem} deleteItem={deleteItem} moveItem={moveItem}
           />
         )}
         {tab === 'growth' && <GrowthTab rate={rate} />}
