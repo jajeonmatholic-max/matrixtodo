@@ -4,12 +4,14 @@ import { QUADRANTS } from './store'
 export default function MatrixTab({ todayItems, rate, addItem, toggleItem, deleteItem, moveItem }) {
   const [adding, setAdding] = useState(null) // quadrantId
   const [title, setTitle] = useState('')
+  const [category, setCategory] = useState('personal')
 
   function handleAdd(e) {
     e.preventDefault()
     if (!title.trim()) return
-    addItem(adding, title.trim())
+    addItem(adding, title.trim(), category)
     setTitle('')
+    setCategory('personal')
     setAdding(null)
   }
 
@@ -92,6 +94,32 @@ export default function MatrixTab({ todayItems, rate, addItem, toggleItem, delet
                       color: 'var(--text)', fontSize: 16, outline: 'none', marginBottom: 12
                     }}
                   />
+                  <div style={{ display: 'flex', gap: 8, marginBottom: 12 }}>
+                    <button
+                      type="button"
+                      onClick={() => setCategory('work')}
+                      style={{
+                        flex: 1, padding: '10px', borderRadius: 8, border: 'none',
+                        background: category === 'work' ? '#2563eb' : 'var(--surface2)',
+                        color: category === 'work' ? 'white' : 'var(--text2)',
+                        fontWeight: 600, cursor: 'pointer', fontSize: 13
+                      }}
+                    >
+                      💼 업무
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setCategory('personal')}
+                      style={{
+                        flex: 1, padding: '10px', borderRadius: 8, border: 'none',
+                        background: category === 'personal' ? '#a855f7' : 'var(--surface2)',
+                        color: category === 'personal' ? 'white' : 'var(--text2)',
+                        fontWeight: 600, cursor: 'pointer', fontSize: 13
+                      }}
+                    >
+                      👤 개인
+                    </button>
+                  </div>
                   <button type="submit" style={{
                     width: '100%', background: q.color, color: 'white',
                     borderRadius: 12, padding: '13px', fontWeight: 700, fontSize: 16,
@@ -172,6 +200,13 @@ function QuadrantCell({ q, items, onAdd, onToggle, onDelete, onMove }) {
               color: item.done ? 'var(--text2)' : 'var(--text)',
               textDecoration: item.done ? 'line-through' : 'none'
             }}>{item.title}</span>
+            <span style={{
+              fontSize: 9, fontWeight: 600, padding: '2px 6px', borderRadius: 4,
+              background: item.category === 'work' ? '#2563eb' : '#a855f7',
+              color: 'white', marginRight: 6, flexShrink: 0
+            }}>
+              {item.category === 'work' ? '💼' : '👤'}
+            </span>
             <button onClick={() => onDelete(item.id)} style={{ color: 'var(--text2)', fontSize: 14 }}>✕</button>
           </div>
         ))}
