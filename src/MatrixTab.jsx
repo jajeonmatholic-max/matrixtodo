@@ -130,18 +130,26 @@ function QuadrantCell({ q, items, onAdd, onToggle, onDelete, onMove }) {
       {/* 목록 */}
       <div
         style={{ flex: 1, overflowY: 'auto', scrollbarGutter: 'stable', WebkitOverflowScrolling: 'touch' }}
-        onDragOver={(e) => { e.preventDefault(); e.dataTransfer.dropEffect = 'move' }}
+        onDragOver={(e) => {
+          e.preventDefault()
+          e.dataTransfer.dropEffect = 'move'
+        }}
+        onDragEnter={(e) => e.preventDefault()}
         onDrop={(e) => {
           e.preventDefault()
-          const itemId = e.dataTransfer.getData('itemId')
+          e.stopPropagation()
+          const itemId = e.dataTransfer.getData('text/plain')
           if (itemId) onMove(itemId, q.id)
         }}
       >
         {items.map(item => (
           <div
             key={item.id}
-            draggable
-            onDragStart={(e) => e.dataTransfer.setData('itemId', item.id)}
+            draggable="true"
+            onDragStart={(e) => {
+              e.dataTransfer.effectAllowed = 'move'
+              e.dataTransfer.setData('text/plain', item.id)
+            }}
             onDragEnd={() => setDragOverId(null)}
             style={{
               display: 'flex', alignItems: 'center', gap: 6,
@@ -149,7 +157,8 @@ function QuadrantCell({ q, items, onAdd, onToggle, onDelete, onMove }) {
               background: swipedId === item.id ? '#3a0010' : 'transparent',
               transition: 'background 0.2s',
               opacity: dragOverId === item.id ? 0.5 : 1,
-              cursor: 'move'
+              cursor: 'grab',
+              userSelect: 'none'
             }}
             onTouchStart={() => {}}
           >
