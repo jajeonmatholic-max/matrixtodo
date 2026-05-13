@@ -5,13 +5,15 @@ export default function MatrixTab({ todayItems, rate, addItem, toggleItem, delet
   const [adding, setAdding] = useState(null) // quadrantId
   const [title, setTitle] = useState('')
   const [category, setCategory] = useState('personal')
+  const [dueDate, setDueDate] = useState(new Date().toISOString().slice(0, 10))
 
   function handleAdd(e) {
     e.preventDefault()
     if (!title.trim()) return
-    addItem(adding, title.trim(), category)
+    addItem(adding, title.trim(), category, dueDate)
     setTitle('')
     setCategory('personal')
+    setDueDate(new Date().toISOString().slice(0, 10))
     setAdding(null)
   }
 
@@ -120,6 +122,21 @@ export default function MatrixTab({ todayItems, rate, addItem, toggleItem, delet
                       👤 개인
                     </button>
                   </div>
+                  <div style={{ marginBottom: 12 }}>
+                    <label style={{ fontSize: 12, color: 'var(--text2)', display: 'block', marginBottom: 6 }}>
+                      📅 마감일
+                    </label>
+                    <input
+                      type="date"
+                      value={dueDate}
+                      onChange={e => setDueDate(e.target.value)}
+                      style={{
+                        width: '100%', background: 'var(--surface2)',
+                        border: 'none', borderRadius: 8, padding: '10px 12px',
+                        color: 'var(--text)', fontSize: 14, outline: 'none'
+                      }}
+                    />
+                  </div>
                   <button type="submit" style={{
                     width: '100%', background: q.color, color: 'white',
                     borderRadius: 12, padding: '13px', fontWeight: 700, fontSize: 16,
@@ -200,6 +217,15 @@ function QuadrantCell({ q, items, onAdd, onToggle, onDelete, onMove }) {
               color: item.done ? 'var(--text2)' : 'var(--text)',
               textDecoration: item.done ? 'line-through' : 'none'
             }}>{item.title}</span>
+            {item.dueDate && (
+              <span style={{
+                fontSize: 9, fontWeight: 600, padding: '2px 6px', borderRadius: 4,
+                background: 'var(--surface2)', color: 'var(--text2)',
+                marginRight: 6, flexShrink: 0
+              }}>
+                📅 {new Date(item.dueDate + 'T00:00:00').toLocaleDateString('ko-KR', { month: 'short', day: 'numeric' })}
+              </span>
+            )}
             <span style={{
               fontSize: 9, fontWeight: 600, padding: '2px 6px', borderRadius: 4,
               background: item.category === 'work' ? '#2563eb' : '#a855f7',

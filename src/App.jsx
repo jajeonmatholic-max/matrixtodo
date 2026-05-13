@@ -3,16 +3,18 @@ import { useStore } from './store'
 import MatrixTab from './MatrixTab'
 import GrowthTab from './GrowthTab'
 import StatsTab from './StatsTab'
+import CalendarTab from './CalendarTab'
 
 const TABS = [
   { id: 'matrix', label: '매트릭스', icon: '⊞' },
   { id: 'growth', label: '성장',    icon: '🎾' },
   { id: 'stats',  label: '통계',    icon: '📊' },
+  { id: 'calendar', label: '캘린더', icon: '📅' },
 ]
 
 export default function App() {
   const [tab, setTab] = useState('matrix')
-  const { todayItems, rate, addItem, toggleItem, deleteItem, moveItem, weeklyStats } = useStore()
+  const { items, todayItems, rate, addItem, toggleItem, deleteItem, moveItem, weeklyStats } = useStore()
 
   const TAB_LABELS = { matrix: '매트릭스', growth: '성장', stats: '통계' }
 
@@ -51,6 +53,7 @@ export default function App() {
         {tab === 'stats' && (
           <StatsTab todayItems={todayItems} rate={rate} weeklyStats={weeklyStats} />
         )}
+        {tab === 'calendar' && <CalendarTab items={items} />}
       </div>
 
       {/* 하단 탭 바 */}

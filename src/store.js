@@ -48,9 +48,9 @@ export function useStore() {
   const rate = todayItems.length === 0 ? 0
     : todayItems.filter(i => i.done).length / todayItems.length
 
-  function addItem(quadrantId, title, category = 'personal') {
+  function addItem(quadrantId, title, category = 'personal', dueDate = null) {
     setItems(prev => [...prev, {
-      id: crypto.randomUUID(), title, quadrantId, category,
+      id: crypto.randomUUID(), title, quadrantId, category, dueDate,
       done: false, date: todayStr(), createdAt: Date.now()
     }])
   }
