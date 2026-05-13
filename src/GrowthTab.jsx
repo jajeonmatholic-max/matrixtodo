@@ -1,5 +1,8 @@
+import { memo } from 'react'
 import JinaeYo from './JinaeYo'
 import { LEVELS, getLevel } from './store'
+
+const MemoJinaeYo = memo(JinaeYo)
 
 export default function GrowthTab({ rate }) {
   const currentLevel = getLevel(rate)
@@ -13,7 +16,7 @@ export default function GrowthTab({ rate }) {
         display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 10,
         marginBottom: 16, boxShadow: '0 0 30px #ff69b440'
       }}>
-        <JinaeYo level={currentLevel.lv} size={180}/>
+        <MemoJinaeYo level={currentLevel.lv} size={180}/>
         <p style={{ color: 'var(--pink)', fontWeight: 700, fontSize: 20 }}>
           Lv.{currentLevel.lv} {currentLevel.name}
         </p>
@@ -59,7 +62,7 @@ export default function GrowthTab({ rate }) {
                 background: isCurrent ? '#ff69b420' : 'var(--surface2)'
               }}>
                 <div style={{ opacity: unlocked ? 1 : 0.3 }}>
-                  <JinaeYo level={lv.lv} size={44}/>
+                  <MemoJinaeYo level={lv.lv} size={44}/>
                 </div>
                 <div style={{ flex: 1 }}>
                   <p style={{
