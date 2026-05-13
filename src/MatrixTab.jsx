@@ -126,7 +126,7 @@ function QuadrantCell({ q, items, onAdd, onToggle, onDelete }) {
       <div style={{ height: 1, background: q.color, opacity: 0.25, flexShrink: 0 }}/>
 
       {/* 목록 */}
-      <div style={{ flex: 1, overflowY: 'auto' }}>
+      <div style={{ flex: 1, overflowY: 'auto', scrollbarGutter: 'stable', WebkitOverflowScrolling: 'touch' }}>
         {items.map(item => (
           <div
             key={item.id}

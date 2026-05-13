@@ -8,7 +8,7 @@ export default function GrowthTab({ rate }) {
   const currentLevel = getLevel(rate)
 
   return (
-    <div style={{ overflowY: 'auto', height: '100%', padding: '16px 16px calc(16px + var(--safe-bottom))' }}>
+    <div style={{ overflowY: 'auto', height: '100%', padding: '16px 16px calc(16px + var(--safe-bottom))', scrollbarGutter: 'stable', WebkitOverflowScrolling: 'touch' }}>
 
       {/* 캐릭터 카드 */}
       <div style={{

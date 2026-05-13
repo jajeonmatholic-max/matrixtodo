@@ -6,7 +6,7 @@ export default function StatsTab({ todayItems, rate, weeklyStats }) {
   const done = todayItems.filter(i => i.done).length
 
   return (
-    <div style={{ overflowY: 'auto', height: '100%', padding: '16px 16px calc(16px + var(--safe-bottom))' }}>
+    <div style={{ overflowY: 'auto', height: '100%', padding: '16px 16px calc(16px + var(--safe-bottom))', scrollbarGutter: 'stable', WebkitOverflowScrolling: 'touch' }}>
 
       {/* 오늘 요약 */}
       <div style={{
