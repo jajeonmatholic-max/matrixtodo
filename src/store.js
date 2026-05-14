@@ -28,10 +28,23 @@ export function getLevel(rate) {
 }
 
 function load() {
-  try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || [] } catch { return [] }
+  try {
+    const stored = localStorage.getItem(STORAGE_KEY)
+    if (!stored) return []
+    const parsed = JSON.parse(stored)
+    return Array.isArray(parsed) ? parsed : []
+  } catch (e) {
+    console.error('localStorage load failed:', e)
+    return []
+  }
 }
+
 function save(items) {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(items))
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(items))
+  } catch (e) {
+    console.error('localStorage save failed:', e)
+  }
 }
 
 function todayStr() {
