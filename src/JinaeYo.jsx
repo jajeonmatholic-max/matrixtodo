@@ -1,5 +1,5 @@
 /* JinaeYo — 라켓(1.5배) + 사진(중앙) */
-import photoUrl from '../public/jinaeyo-photo.png?url'
+import photoUrl from './assets/jinaeyo-photo.png'
 
 export default function JinaeYo({ level = 1, size = 160 }) {
   return (
