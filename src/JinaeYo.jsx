@@ -1,7 +1,7 @@
-import photoUrl from './jinaeyo-photo.png'
-
 /* JinaeYo — 라켓(1.5배) + 사진(중앙) */
 export default function JinaeYo({ level = 1, size = 160 }) {
+  const photoUrl = new URL('../public/jinaeyo-photo.png', import.meta.url).href
+
   return (
     <div style={{ position: 'relative', width: size * 3.2, height: size * 1.4 }}>
       {/* 라켓 SVG (좌측 1.5배) */}
