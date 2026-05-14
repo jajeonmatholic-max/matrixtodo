@@ -18,7 +18,7 @@ export default function JinaeYo({ level = 1, size = 160 }) {
         <RacketSection level={level} />
       </svg>
 
-      {/* 사진 (중앙) */}
+      {/* 사진 (중앙) - Image centered */}
       <img
         src="/matrixtodo/jinaeyo-photo.png"
         alt="JinaeYo"
