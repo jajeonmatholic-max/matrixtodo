@@ -1,4 +1,6 @@
 /* JinaeYo — 라켓(1.5배) + 사진(중앙) */
+import photoUrl from '../public/jinaeyo-photo.png?url'
+
 export default function JinaeYo({ level = 1, size = 160 }) {
   return (
     <div style={{ position: 'relative', width: size * 3.2, height: size * 1.4 }}>
@@ -20,7 +22,7 @@ export default function JinaeYo({ level = 1, size = 160 }) {
 
       {/* 사진 (중앙) - Image centered */}
       <img
-        src="/matrixtodo/jinaeyo-photo.png"
+        src={photoUrl}
         alt="JinaeYo"
         style={{
           position: 'absolute',
