@@ -1,4 +1,4 @@
-import photoUrl from '/jinaeyo-photo.png?url'
+import photoUrl from './jinaeyo-photo.png'
 
 /* JinaeYo — 라켓(1.5배) + 사진(중앙) */
 export default function JinaeYo({ level = 1, size = 160 }) {
