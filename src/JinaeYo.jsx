@@ -2,8 +2,6 @@
 import photoUrl from './assets/jinaeyo-photo.png'
 
 export default function JinaeYo({ level = 1, size = 160 }) {
-  const finalPhotoUrl = `${import.meta.env.BASE_URL}${photoUrl.startsWith('/') ? photoUrl.slice(1) : photoUrl}`
-
   return (
     <div style={{ position: 'relative', width: size * 3.2, height: size * 1.4 }}>
       {/* 라켓 SVG (좌측 1.5배) */}
@@ -24,7 +22,7 @@ export default function JinaeYo({ level = 1, size = 160 }) {
 
       {/* 사진 (중앙) - Image centered */}
       <img
-        src={finalPhotoUrl}
+        src={photoUrl}
         alt="JinaeYo"
         style={{
           position: 'absolute',
