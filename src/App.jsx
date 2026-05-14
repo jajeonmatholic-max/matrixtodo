@@ -16,7 +16,7 @@ export default function App() {
   const [tab, setTab] = useState('matrix')
   const { items, todayItems, rate, addItem, toggleItem, deleteItem, moveItem, weeklyStats } = useStore()
 
-  const TAB_LABELS = { matrix: '매트릭스', growth: '성장', stats: '통계' }
+  const TAB_LABELS = { matrix: '매트릭스', growth: '성장', stats: '통계', calendar: '캘린더' }
 
   return (
     <div style={{
