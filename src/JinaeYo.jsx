@@ -1,3 +1,5 @@
+import photoUrl from '/jinaeyo-photo.png?url'
+
 /* JinaeYo — 라켓(1.5배) + 사진(중앙) */
 export default function JinaeYo({ level = 1, size = 160 }) {
   return (
@@ -20,7 +22,7 @@ export default function JinaeYo({ level = 1, size = 160 }) {
 
       {/* 사진 (중앙) */}
       <img
-        src="/jinaeyo-photo.png"
+        src={photoUrl}
         alt="JinaeYo"
         style={{
           position: 'absolute',
