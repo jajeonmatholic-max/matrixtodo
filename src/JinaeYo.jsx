@@ -20,7 +20,7 @@ export default function JinaeYo({ level = 1, size = 160 }) {
 
       {/* 사진 (중앙) */}
       <img
-        src="/matrixtodo/jinaeyo-photo.png"
+        src="jinaeyo-photo.png"
         alt="JinaeYo"
         style={{
           position: 'absolute',
