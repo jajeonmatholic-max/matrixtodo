@@ -1,1 +1,1 @@
-if('serviceWorker' in navigator) {window.addEventListener('load', () => {navigator.serviceWorker.register('/matrixtodo/sw.js', { scope: '/matrixtodo/' }).then(reg => {setInterval(() => {reg.update()}, 30000)})})}
+if('serviceWorker' in navigator) {window.addEventListener('load', () => {navigator.serviceWorker.register('/matrixtodo/sw.js', { scope: '/matrixtodo/' })})}
