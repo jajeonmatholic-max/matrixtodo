@@ -31,7 +31,7 @@ export default function App() {
         flexShrink: 0, borderBottom: '1px solid var(--surface2)'
       }}>
         <span style={{ fontSize: 11, color: 'var(--text2)', fontWeight: 500, letterSpacing: 1 }}>
-          MATRIX TODO
+          MATRIX TODO v2
         </span>
         <span style={{ color: 'var(--pink)', fontWeight: 700, fontSize: 14 }}>
           {TAB_LABELS[tab]}
