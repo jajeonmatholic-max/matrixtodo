@@ -2,6 +2,7 @@ import { useState } from 'react'
 
 export default function CalendarTab({ items }) {
   const [currentDate, setCurrentDate] = useState(new Date())
+  const [selectedDate, setSelectedDate] = useState(null)
 
   const year = currentDate.getFullYear()
   const month = currentDate.getMonth()
@@ -78,9 +79,10 @@ export default function CalendarTab({ items }) {
           return (
             <div
               key={i}
+              onClick={() => date && dateStr && setSelectedDate(dateStr)}
               style={{
                 aspectRatio: '1',
-                background: date ? getBackgroundColor(rate) : 'transparent',
+                background: selectedDate === dateStr ? '#ff69b4' : date ? getBackgroundColor(rate) : 'transparent',
                 borderRadius: 8,
                 display: 'flex',
                 flexDirection: 'column',
@@ -89,7 +91,8 @@ export default function CalendarTab({ items }) {
                 padding: 4,
                 opacity: date ? 1 : 0.3,
                 cursor: date ? 'pointer' : 'default',
-                transition: 'background 0.2s'
+                transition: 'background 0.2s',
+                transform: selectedDate === dateStr ? 'scale(0.95)' : 'scale(1)'
               }}
             >
               {date && (
@@ -131,6 +134,61 @@ export default function CalendarTab({ items }) {
           </div>
         </div>
       </div>
+
+      {/* 선택된 날짜 상세보기 */}
+      {selectedDate && (
+        <div style={{ marginTop: 24, padding: 16, background: 'var(--surface)', borderRadius: 12 }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
+            <h3 style={{ margin: 0, color: 'var(--text)', fontSize: 14, fontWeight: 700 }}>
+              📅 {selectedDate.split('-')[1]}/{selectedDate.split('-')[2]}
+            </h3>
+            <button
+              onClick={() => setSelectedDate(null)}
+              style={{
+                background: 'none', border: 'none', color: 'var(--text2)',
+                fontSize: 18, cursor: 'pointer', padding: 0
+              }}
+            >
+              ✕
+            </button>
+          </div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+            {getItemsForDate(selectedDate).length > 0 ? (
+              getItemsForDate(selectedDate).map(item => (
+                <div
+                  key={item.id}
+                  style={{
+                    display: 'flex', alignItems: 'center', gap: 8,
+                    padding: '8px 10px', background: 'var(--surface2)', borderRadius: 8
+                  }}
+                >
+                  <span style={{ color: item.done ? 'var(--pink)' : 'var(--text2)', fontSize: 16 }}>
+                    {item.done ? '●' : '○'}
+                  </span>
+                  <span style={{
+                    flex: 1, fontSize: 12,
+                    color: item.done ? 'var(--text2)' : 'var(--text)',
+                    textDecoration: item.done ? 'line-through' : 'none'
+                  }}>
+                    {item.title}
+                  </span>
+                  <span style={{
+                    fontSize: 9, fontWeight: 600, padding: '2px 6px', borderRadius: 4,
+                    background: item.category === 'work' ? '#2563eb' : '#a855f7',
+                    color: 'white'
+                  }}>
+                    {item.category === 'work' ? '💼' : '👤'}
+                  </span>
+                </div>
+              ))
+            ) : (
+              <p style={{ margin: 0, fontSize: 12, color: 'var(--text2)', textAlign: 'center' }}>
+                이 날짜에 할 일이 없습니다
+              </p>
+            )}
+          </div>
+        </div>
+      )}
     </div>
   )
 }

@@ -1,7 +1,8 @@
 import { useState } from 'react'
 import { QUADRANTS } from './store'
+import { formatCompactDate } from './dateUtils'
 
-export default function MatrixTab({ todayItems, rate, addItem, toggleItem, deleteItem, moveItem }) {
+export default function MatrixTab({ items, rate, addItem, toggleItem, deleteItem, moveItem }) {
   const [adding, setAdding] = useState(null) // quadrantId
   const [title, setTitle] = useState('')
   const [category, setCategory] = useState('personal')
@@ -49,7 +50,7 @@ export default function MatrixTab({ todayItems, rate, addItem, toggleItem, delet
         overflow: 'hidden'
       }}>
         {QUADRANTS.map(q => {
-          const qItems = todayItems.filter(i => i.quadrantId === q.id)
+          const qItems = items.filter(i => i.quadrantId === q.id)
           return (
             <QuadrantCell
               key={q.id} q={q} items={qItems}
@@ -197,7 +198,7 @@ function QuadrantCell({ q, items, onAdd, onToggle, onDelete, onMove }) {
             }}
             onDragEnd={() => setDragOverId(null)}
             style={{
-              display: 'flex', alignItems: 'center', gap: 6,
+              display: 'flex', alignItems: 'center', gap: 4,
               padding: '6px 8px',
               background: swipedId === item.id ? '#3a0010' : 'transparent',
               transition: 'background 0.2s',
@@ -212,24 +213,24 @@ function QuadrantCell({ q, items, onAdd, onToggle, onDelete, onMove }) {
                 {item.done ? '●' : '○'}
               </span>
             </button>
+            {item.dueDate && (
+              <span style={{
+                fontSize: 9, fontWeight: 600, padding: '2px 5px', borderRadius: 3,
+                background: 'var(--surface2)', color: 'var(--text2)',
+                flexShrink: 0
+              }}>
+                📅 {formatCompactDate(item.dueDate)}
+              </span>
+            )}
             <span style={{
               fontSize: 12, flex: 1, lineHeight: 1.3,
               color: item.done ? 'var(--text2)' : 'var(--text)',
               textDecoration: item.done ? 'line-through' : 'none'
             }}>{item.title}</span>
-            {item.dueDate && (
-              <span style={{
-                fontSize: 9, fontWeight: 600, padding: '2px 6px', borderRadius: 4,
-                background: 'var(--surface2)', color: 'var(--text2)',
-                marginRight: 6, flexShrink: 0
-              }}>
-                📅 {new Date(item.dueDate + 'T00:00:00').toLocaleDateString('ko-KR', { month: 'short', day: 'numeric' })}
-              </span>
-            )}
             <span style={{
               fontSize: 9, fontWeight: 600, padding: '2px 6px', borderRadius: 4,
               background: item.category === 'work' ? '#2563eb' : '#a855f7',
-              color: 'white', marginRight: 6, flexShrink: 0
+              color: 'white', flexShrink: 0
             }}>
               {item.category === 'work' ? '💼' : '👤'}
             </span>

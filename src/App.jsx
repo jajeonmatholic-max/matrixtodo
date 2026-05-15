@@ -45,7 +45,7 @@ export default function App() {
       <div style={{ flex: 1, overflow: 'hidden' }}>
         {tab === 'matrix' && (
           <MatrixTab
-            todayItems={todayItems} rate={rate}
+            items={items} rate={rate}
             addItem={addItem} toggleItem={toggleItem} deleteItem={deleteItem} moveItem={moveItem}
           />
         )}
